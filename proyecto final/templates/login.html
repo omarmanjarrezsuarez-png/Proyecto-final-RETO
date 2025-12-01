@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block content %}
+<div class="mx-auto" style="max-width:420px">
+  <h3>Iniciar sesión</h3>
+  <form method="post">
+    <label class="form-label">Usuario
+      <input class="form-control" name="username" required>
+    </label>
+    <label class="form-label">Contraseña
+      <input type="password" class="form-control" name="password" required>
+    </label>
+    <button class="btn btn-primary mt-2">Entrar</button>
+  </form>
+</div>
+{% endblock %}

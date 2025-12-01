@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Participantes</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<h1>Participantes del reto: {{ reto.nombre }}</h1>
+
+<a href="{{ url_for('ver_reto', reto_id=reto.id) }}" class="btn">Volver al reto</a>
+<br><br>
+
+{% if participantes %}
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+        </tr>
+        {% for p in participantes %}
+        <tr>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.email }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No hay participantes en este reto todavía.</p>
+{% endif %}
+
+</body>
+</html>

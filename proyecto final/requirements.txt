@@ -1,0 +1,7 @@
+Flask
+flask-login
+mysql-connector-python
+werkzeug
+reportlab  
+
+pip install Flask flask-login mysql-connector-python werkzeug reportlab

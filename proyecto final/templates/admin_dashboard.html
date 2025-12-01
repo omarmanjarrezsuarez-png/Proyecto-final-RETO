@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+{% block title %}Admin - Panel{% endblock %}
+{% block content %}
+<h3>Panel de administración</h3>
+
+<section class="mb-4">
+  <h5>Usuarios</h5>
+  <div class="table-responsive">
+    <table class="table table-sm">
+      <thead><tr><th>ID</th><th>Usuario</th><th>Nombre</th><th>Rol</th><th>Puntos</th><th>Acciones</th></tr></thead>
+      <tbody>
+        {% for u in users %}
+          <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.username }}</td>
+            <td>{{ u.display_name }}</td>
+            <td>{{ u.role_id }}</td>
+            <td>{{ u.points }}</td>
+            <td>
+              <form method="post" action="{{ url_for('admin_reset_points', user_id=u.id) }}" style="display:inline">
+                <button class="btn btn-sm btn-outline-warning">Reset puntos</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6">No hay usuarios.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h5>Retos</h5>
+  <div class="table-responsive">
+    <table class="table table-sm">
+      <thead><tr><th>ID</th><th>Título</th><th>Creador</th><th>Fecha</th><th>Acciones</th></tr></thead>
+      <tbody>
+        {% for r in retos %}
+          <tr>
+            <td>{{ r.id }}</td>
+            <td>{{ r.titulo }}</td>
+            <td>{{ r.creador }}</td>
+            <td>{{ r.created_at }}</td>
+            <td>
+              <form method="post" action="{{ url_for('admin_delete_reto', reto_id=r.id) }}" style="display:inline">
+                <button class="btn btn-sm btn-danger">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="5">No hay retos.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

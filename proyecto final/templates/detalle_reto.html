@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% block title %}{{ reto.titulo }}{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card p-3 mb-3">
+      <h4>{{ reto.titulo }}</h4>
+      <p class="text-muted">{{ reto.descripcion }}</p>
+      <p><strong>Duración:</strong> {{ reto.duracion }} días • <strong>Puntos/día:</strong> {{ reto.puntos_por_dia }}</p>
+
+      <div class="d-flex gap-2">
+        {% if en_participacion %}
+          <form method="post" action="{{ url_for('abandonar_reto', reto_id=reto.id) }}">
+            <button class="btn btn-warning btn-sm">Abandonar</button>
+          </form>
+        {% else %}
+          <form method="post" action="{{ url_for('unirse_reto', reto_id=reto.id) }}">
+            <button class="btn btn-success btn-sm">Unirme</button>
+          </form>
+        {% endif %}
+        {% if current_user.role in ['coach','admin'] and (current_user.role=='admin' or reto.creador_id == current_user.id|int) %}
+          <a class="btn btn-warning btn-sm" href="{{ url_for('editar_reto', reto_id=reto.id) }}">Editar</a>
+          <form method="post" action="{{ url_for('eliminar_reto', reto_id=reto.id) }}" style="display:inline">
+            <button class="btn btn-danger btn-sm">Eliminar</button>
+          </form>
+          
+
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="card p-3 mb-3">
+      <h5>Marcar progreso</h5>
+      <form method="post" action="{{ url_for('marcar_progreso', reto_id=reto.id) }}">
+        <div class="row g-2">
+          <div class="col-md-4">
+            <label class="form-label">Fecha</label>
+            <input type="date" class="form-control" name="fecha" value="{{ today }}">
+          </div>
+          <div class="col-md-4 d-flex align-items-end">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="completado" id="completado" checked>
+              <label class="form-check-label" for="completado">Completado</label>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex align-items-end">
+            <button class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="card p-3">
+      <h5>Comentarios</h5>
+      <form method="post" action="{{ url_for('comentar_reto', reto_id=reto.id) }}">
+        <textarea class="form-control" name="mensaje" rows="3" required></textarea>
+        <div class="mt-2">
+          <button class="btn btn-secondary btn-sm">Comentar</button>
+        </div>
+      </form>
+
+      <ul class="list-unstyled mt-3">
+        {% for c in comentarios %}
+          <li class="mb-3">
+            <div><strong>{{ c.username }}</strong> <small class="text-muted">{{ c.created_at }}</small></div>
+            <div>{{ c.mensaje }}</div>
+          </li>
+        {% else %}
+          <li>No hay comentarios todavía.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card p-3 mb-3">
+      <h6>Información</h6>
+      <p class="small text-muted">Creado: {{ reto.created_at }}</p>
+      <p class="small text-muted">Creador: {% if reto.creador_id %}{{ reto.creador_id }}{% else %}—{% endif %}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

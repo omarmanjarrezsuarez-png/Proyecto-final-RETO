@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block title %}Registrarse{% endblock %}
+{% block content %}
+<div class="mx-auto" style="max-width:480px">
+  <h3>Crear cuenta</h3>
+  <form method="post">
+    <label class="form-label">Usuario<input class="form-control" name="username" required></label>
+    <label class="form-label">Nombre a mostrar<input class="form-control" name="display_name"></label>
+    <label class="form-label">Contraseña<input type="password" class="form-control" name="password" required></label>
+    <label class="form-label">Rol
+      <select class="form-select" name="role"><option>Usuario</option><option>Coach</option></select>
+    </label>
+    <button class="btn btn-success mt-2">Crear cuenta</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block title %}Logros{% endblock %}
+{% block content %}
+<h3>Logros</h3>
+<div class="row g-3">
+  {% for l in logros %}
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h6 class="mb-1">{{ l.nombre }}</h6>
+        <p class="small text-muted mb-1">{{ l.descripcion }}</p>
+        <p class="mb-2"><strong>{{ l.puntos }} pts</strong></p>
+        {% if l.obtenido %}
+          <button class="btn btn-secondary btn-sm" disabled>Obtenido</button>
+        {% else %}
+          <form method="post" action="{{ url_for('intentar_logro', logro_id=l.id) }}">
+            <button class="btn btn-primary btn-sm">Canjear</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div class="col-12"><p>No hay logros.</p></div>
+  {% endfor %}
+</div>
+{% endblock %}

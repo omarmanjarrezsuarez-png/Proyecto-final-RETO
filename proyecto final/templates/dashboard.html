@@ -1,0 +1,98 @@
+{% extends 'layout.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="card p-3 mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="mb-0">Hola, {{ current_user.display_name or current_user.username }}</h4>
+          <small class="text-muted">Rol: {{ current_user.role }}</small>
+        </div>
+        <div class="text-end">
+          {% if current_user.role in ['coach','admin'] %}
+            <a class="btn btn-outline-primary btn-sm" href="{{ url_for('crear_reto') }}">Crear reto</a>
+          {% endif %}
+          <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('ver_logros') }}">Mis logros</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-sm-6">
+        <div class="card p-3">
+          <small class="text-muted">Retos públicos</small>
+          <h3 class="mt-1">{{ total_public }}</h3>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card p-3">
+          <small class="text-muted">Retos en los que participas</small>
+          <h3 class="mt-1">{{ retos_activos }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3 mb-3">
+      <h5>Progreso reciente</h5>
+      <div class="table-responsive">
+        <table class="table table-sm mt-2">
+          <thead><tr><th>Reto</th><th>Fecha</th><th>Completado</th></tr></thead>
+          <tbody>
+            {% for p in progreso %}
+              <tr>
+                <td>{{ p.reto }}</td>
+                <td>{{ p.fecha }}</td>
+                <td>{% if p.completado %}✔️{% else %}—{% endif %}</td>
+              </tr>
+            {% else %}
+              <tr><td colspan="3">Aún no hay progreso registrado.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-2">
+        <a class="btn btn-outline-primary btn-sm" href="{{ url_for('reportes_csv') }}">Descargar CSV</a>
+      </div>
+    </div>
+
+    <div class="card p-3">
+      <h5>Retos disponibles</h5>
+      <div class="row g-2 mt-2">
+        {% for r in retos %}
+          <div class="col-md-6">
+            <div class="border p-3 h-100">
+              <h6 class="mb-1">{{ r.titulo }}</h6>
+              <p class="text-muted mb-2 small">{{ r.descripcion|truncate(120) }}</p>
+              <div class="d-flex gap-2">
+                <form action="{{ url_for('unirse_reto', reto_id=r.id) }}" method="post" style="display:inline">
+                  <button class="btn btn-sm btn-success">Unirme</button>
+                </form>
+                <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('detalle_reto', reto_id=r.id) }}">Ver</a>
+                {% if current_user.role in ['coach','admin'] and (current_user.role=='admin' or r.creador_id == current_user.id|int) %}
+                  <a class="btn btn-sm btn-warning" href="{{ url_for('editar_reto', reto_id=r.id) }}">Editar</a>
+                  <form method="post" action="{{ url_for('eliminar_reto', reto_id=r.id) }}" style="display:inline">
+                    <button class="btn btn-sm btn-danger">Eliminar</button>
+                  </form>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <div class="col-12"><p>No hay retos disponibles.</p></div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card p-3 mb-3">
+      <h6>Perfil rápido</h6>
+      <p class="mb-1">{{ current_user.display_name or current_user.username }}</p>
+      <p class="small text-muted">Puntos: {{ puntos_totales }} • Nivel: {{ nivel }}</p>
+      <a class="btn btn-sm btn-primary" href="{{ url_for('perfil') }}">Ver Perfil</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

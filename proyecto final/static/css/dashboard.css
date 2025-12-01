@@ -1,0 +1,9 @@
+.dashboard-container { width: 90%; margin: auto; margin-top: 30px; padding: 20px; }
+.titulo { font-size: 26px; font-weight: bold; color: #2b2f42; }
+.subtitulo { font-size: 18px; margin-bottom: 20px; color: #555; }
+.btn { display: inline-block; background: #4A6CF7; color: white; padding: 10px 20px; border-radius: 6px; margin: 10px 5px; text-decoration: none; }
+.btn:hover { background: #3c5cd6; }
+.btn-coach { background: #22A699; } .btn-coach:hover { background: #1d8d82; }
+.btn-admin { background: #D9534F; } .btn-admin:hover { background: #b84642; }
+.retos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.reto-card{background:linear-gradient(180deg,#fff,#f7fcff);padding:10px;border-left:4px solid #3282b8;border-radius:8px}

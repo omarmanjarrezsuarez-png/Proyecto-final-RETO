@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block title %}Mi Perfil{% endblock %}
+{% block content %}
+<div class="mx-auto" style="max-width:720px">
+  <h3>Mi perfil</h3>
+  <form method="post">
+    <div class="mb-2">
+      <label class="form-label">Nombre a mostrar</label>
+      <input name="display_name" class="form-control" value="{{ current_user.display_name or '' }}">
+    </div>
+    <div class="mb-2">
+      <label class="form-label">Nueva contraseña (dejar vacío para no cambiar)</label>
+      <input type="password" name="password" class="form-control">
+    </div>
+    <div>
+      <button class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+
+  <hr>
+  <h5>Mis logros</h5>
+  <ul>
+    {% for L in logros %}
+      <li>{{ L.nombre }} — {{ L.descripcion }} <span class="badge bg-light text-dark">{{ L.puntos }} pts</span></li>
+    {% else %}
+      <li>No tienes logros todavía.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
