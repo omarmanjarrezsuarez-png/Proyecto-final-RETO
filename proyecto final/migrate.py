@@ -3,7 +3,7 @@ import sys
 import mysql.connector
 from mysql.connector import errorcode
 
-SQL_FILE_PATH = os.environ.get("SQL_FILE", "/mnt/data/retos_habitos.sql")
+SQL_FILE_PATH = os.environ.get("SQL_FILE", "./retos_habitos.sql")
 
 # Lee variables de entorno (útil en Railway)
 DB_HOST = os.environ.get("DB_HOST", os.environ.get("MYSQL_HOST", "localhost"))
