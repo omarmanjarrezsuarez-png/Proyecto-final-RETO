@@ -2,7 +2,7 @@
 {
   "host": "mysql.railway.internal",
   "user": "root",
-  "password": "LqOENOSXqKWnVMOnhezTRehIGIrecUiL",
+  "password": "mQXcacDjYZKSpEvqxzOoNSILXSnGsvXY",
   "port": 3306,
   "database": "railway"
 }
