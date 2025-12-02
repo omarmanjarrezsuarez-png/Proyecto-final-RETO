@@ -2,6 +2,7 @@ import os
 import sys
 import mysql.connector
 from mysql.connector import errorcode
+import pymysql
 
 SQL_FILE_PATH = os.environ.get("SQL_FILE", "./retos_habitos.sql")
 
