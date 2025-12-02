@@ -6,10 +6,10 @@ from mysql.connector import errorcode
 SQL_FILE_PATH = os.environ.get("SQL_FILE", "./retos_habitos.sql")
 
 # Lee variables de entorno (útil en Railway)
-DB_HOST = os.environ.get("DB_HOST", os.environ.get("MYSQL_HOST", "localhost"))
-DB_PORT = int(os.environ.get("DB_PORT", os.environ.get("MYSQL_PORT", 3306)))
-DB_USER = os.environ.get("DB_USER", os.environ.get("MYSQL_USER", "root"))
-DB_PASSWORD = os.environ.get("DB_PASSWORD", os.environ.get("MYSQL_PASSWORD", ""))
+DB_HOST = "mysql.railway.internal"
+DB_PORT = 3306
+DB_USER = "root"
+DB_PASSWORD = "mQXcacDjYZKSpEvqxzOoNSILXSnGsvXY"
 
 def read_sql_file(path):
     if not os.path.exists(path):
