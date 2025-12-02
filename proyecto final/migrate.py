@@ -4,7 +4,7 @@ from mysql.connector import errorcode
 # CONFIGURA TU CONEXIÓN A MYSQL
 CONFIG = {
     "user": "root",
-    "password": "LqOENOSXqKWnVMOnhezTRehIGIrecUiL",
+    "password": "mQXcacDjYZKSpEvqxzOoNSILXSnGsvXY",
     "host": "mysql.railway.internal",
 }
 
